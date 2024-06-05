@@ -8,3 +8,4 @@ build/
 /bazel-*
 MODULE.bazel.lock
 out/
+.zig-cache
