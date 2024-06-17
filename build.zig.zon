@@ -1,0 +1,26 @@
+.{
+    .name = "libsnappy",
+    .version = "1.2.1",
+
+    .minimum_zig_version = "0.13.0",
+
+    .paths = .{
+        "COPYING",
+        "README.md",
+        "build.zig",
+        "build.zig.zon",
+        "snappy.zig",
+
+        "cmake/config.h.in",
+        "snappy-c.cc",
+        "snappy-c.h",
+        "snappy-internal.h",
+        "snappy-sinksource.cc",
+        "snappy-sinksource.h",
+        "snappy-stubs-internal.cc",
+        "snappy-stubs-internal.h",
+        "snappy-stubs-public.h.in",
+        "snappy.cc",
+        "snappy.h",
+    },
+}
