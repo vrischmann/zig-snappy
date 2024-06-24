@@ -68,6 +68,32 @@ pub fn build(b: *std.Build) void {
     lib.installHeader(b.path("snappy-c.h"), "snappy-c.h");
 
     b.installArtifact(lib);
+
+    // Zig specific module
+
+    const mod = b.addModule("snappy", .{
+        .root_source_file = b.path("snappy.zig"),
+        .target = target,
+        .optimize = optimize,
+        .link_libc = true,
+    });
+    mod.addIncludePath(b.path("."));
+    mod.linkLibrary(lib);
+
+    // Tests
+
+    const tests = b.addTest(.{
+        .root_source_file = b.path("snappy.zig"),
+        .target = target,
+        .optimize = optimize,
+    });
+    tests.linkLibrary(lib);
+    tests.addIncludePath(b.path("."));
+
+    const run_tests = b.addRunArtifact(tests);
+
+    const test_step = b.step("test", "Run the tests");
+    test_step.dependOn(&run_tests.step);
 }
 
 const all_sources = [_][]const u8{ "snappy.cc", "snappy-c.cc", "snappy-sinksource.cc", "snappy-stubs-internal.cc" };
